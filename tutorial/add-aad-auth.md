@@ -249,7 +249,7 @@ Adicione esta ação a `./routes/web.php`.
 Route::get('/signout', 'AuthController@signout');
 ```
 
-ReInicie o servidor e vá pelo processo de entrada. Você deve terminar de volta na Home Page, mas a interface do usuário deve ser alterada para indicar que você está conectado.
+Reinicie o servidor e vá pelo processo de entrada. Você deve terminar de volta na Home Page, mas a interface do usuário deve ser alterada para indicar que você está conectado.
 
 ![Uma captura de tela da Home Page após entrar](./images/add-aad-auth-01.png)
 
@@ -261,7 +261,7 @@ Clique no avatar do usuário no canto superior direito para acessar o **** link 
 
 Nesse ponto, seu aplicativo tem um token de acesso, que é enviado no `Authorization` cabeçalho das chamadas de API. Este é o token que permite que o aplicativo acesse o Microsoft Graph em nome do usuário.
 
-No enTanto, esse token é de vida curta. O token expira uma hora após sua emissão. É onde o token de atualização se torna útil. O token de atualização permite que o aplicativo solicite um novo token de acesso sem exigir que o usuário entre novamente. Atualize o código de gerenciamento de token para implementar a atualização de token.
+No entanto, esse token é de vida curta. O token expira uma hora após sua emissão. É onde o token de atualização se torna útil. O token de atualização permite que o aplicativo solicite um novo token de acesso sem exigir que o usuário entre novamente. Atualize o código de gerenciamento de token para implementar a atualização de token.
 
 Abra `./app/TokenStore/TokenCache.php` e adicione a função a seguir à `TokenCache` classe.
 
