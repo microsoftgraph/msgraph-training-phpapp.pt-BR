@@ -12,7 +12,7 @@ Laravel cria um novo diretório chamado `graph-tutorial` e estruturará um aplic
 php artisan serve
 ```
 
-Abra o navegador e vá até `http://localhost:8000`. Se tudo estiver funcionando, você verá uma página padrão do Laravel. Se você não vir essa página, verifique os [documentos do Laravel](https://laravel.com/docs/5.6).
+Abra o navegador e vá até `http://localhost:8000`. Se tudo estiver funcionando, você verá uma página padrão do Laravel. Se você não vir essa página, verifique os [documentos do Laravel](https://laravel.com/docs/6.0).
 
 Antes de prosseguir, instale algumas bibliotecas adicionais que serão usadas posteriormente:
 
@@ -116,7 +116,7 @@ Comece criando o layout global para o aplicativo. Crie um novo arquivo no `./res
 
 Este código adiciona a [inicialização](http://getbootstrap.com/) para estilos simples e a [fonte incrível](https://fontawesome.com/) para alguns ícones simples. Também define um layout global com uma barra de navegação.
 
-Agora, `./public/css/app.css` abra e substitua todo o conteúdo pelo seguinte.
+Crie um `./public` novo diretório no diretório chamado `css`e, em seguida, crie um novo arquivo `./public/css` no diretório `app.css`chamado. Adicione o código a seguir.
 
 ```css
 body {
