@@ -1,33 +1,33 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-<span data-ttu-id="1ddc3-101">Abra a interface de linha de comando (CLI), navegue até um diretório onde você tem direitos para criar arquivos e execute o seguinte comando para criar um novo aplicativo PHP.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-101">Open your command-line interface (CLI), navigate to a directory where you have rights to create files, and run the following command to create a new PHP app.</span></span>
+<span data-ttu-id="55df3-101">Abra a interface de linha de comando (CLI), navegue até um diretório onde você tem direitos para criar arquivos e execute o seguinte comando para criar um novo aplicativo PHP.</span><span class="sxs-lookup"><span data-stu-id="55df3-101">Open your command-line interface (CLI), navigate to a directory where you have rights to create files, and run the following command to create a new PHP app.</span></span>
 
 ```Shell
 laravel new graph-tutorial
 ```
 
-<span data-ttu-id="1ddc3-102">Laravel cria um novo diretório chamado `graph-tutorial` e estruturará um aplicativo PHP.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-102">Laravel creates a new directory called `graph-tutorial` and scaffolds a PHP app.</span></span> <span data-ttu-id="1ddc3-103">Navegue até este novo diretório e digite o seguinte comando para iniciar um servidor Web local.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-103">Navigate to this new directory and enter the following command to start a local web server.</span></span>
+<span data-ttu-id="55df3-102">Laravel cria um novo diretório chamado `graph-tutorial` e estruturará um aplicativo PHP.</span><span class="sxs-lookup"><span data-stu-id="55df3-102">Laravel creates a new directory called `graph-tutorial` and scaffolds a PHP app.</span></span> <span data-ttu-id="55df3-103">Navegue até este novo diretório e digite o seguinte comando para iniciar um servidor Web local.</span><span class="sxs-lookup"><span data-stu-id="55df3-103">Navigate to this new directory and enter the following command to start a local web server.</span></span>
 
 ```Shell
 php artisan serve
 ```
 
-<span data-ttu-id="1ddc3-104">Abra o navegador e vá até `http://localhost:8000`.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-104">Open your browser and navigate to `http://localhost:8000`.</span></span> <span data-ttu-id="1ddc3-105">Se tudo estiver funcionando, você verá uma página padrão do Laravel.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-105">If everything is working, you will see a default Laravel page.</span></span> <span data-ttu-id="1ddc3-106">Se você não vir essa página, verifique os [documentos do Laravel](https://laravel.com/docs/5.6).</span><span class="sxs-lookup"><span data-stu-id="1ddc3-106">If you don't see that page, check the [Laravel docs](https://laravel.com/docs/5.6).</span></span>
+<span data-ttu-id="55df3-104">Abra o navegador e vá até `http://localhost:8000`.</span><span class="sxs-lookup"><span data-stu-id="55df3-104">Open your browser and navigate to `http://localhost:8000`.</span></span> <span data-ttu-id="55df3-105">Se tudo estiver funcionando, você verá uma página padrão do Laravel.</span><span class="sxs-lookup"><span data-stu-id="55df3-105">If everything is working, you will see a default Laravel page.</span></span> <span data-ttu-id="55df3-106">Se você não vir essa página, verifique os [documentos do Laravel](https://laravel.com/docs/6.0).</span><span class="sxs-lookup"><span data-stu-id="55df3-106">If you don't see that page, check the [Laravel docs](https://laravel.com/docs/6.0).</span></span>
 
-<span data-ttu-id="1ddc3-107">Antes de prosseguir, instale algumas bibliotecas adicionais que serão usadas posteriormente:</span><span class="sxs-lookup"><span data-stu-id="1ddc3-107">Before moving on, install some additional libraries that you will use later:</span></span>
+<span data-ttu-id="55df3-107">Antes de prosseguir, instale algumas bibliotecas adicionais que serão usadas posteriormente:</span><span class="sxs-lookup"><span data-stu-id="55df3-107">Before moving on, install some additional libraries that you will use later:</span></span>
 
-- <span data-ttu-id="1ddc3-108">[oauth2-Client](https://github.com/thephpleague/oauth2-client) para manipulação de entrada e fluxos de token OAuth.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-108">[oauth2-client](https://github.com/thephpleague/oauth2-client) for handling sign-in and OAuth token flows.</span></span>
-- <span data-ttu-id="1ddc3-109">[Microsoft-Graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-109">[microsoft-graph](https://github.com/microsoftgraph/msgraph-sdk-php) for making calls to Microsoft Graph.</span></span>
+- <span data-ttu-id="55df3-108">[oauth2-Client](https://github.com/thephpleague/oauth2-client) para manipulação de entrada e fluxos de token OAuth.</span><span class="sxs-lookup"><span data-stu-id="55df3-108">[oauth2-client](https://github.com/thephpleague/oauth2-client) for handling sign-in and OAuth token flows.</span></span>
+- <span data-ttu-id="55df3-109">[Microsoft-Graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="55df3-109">[microsoft-graph](https://github.com/microsoftgraph/msgraph-sdk-php) for making calls to Microsoft Graph.</span></span>
 
-<span data-ttu-id="1ddc3-110">Execute o seguinte comando em sua CLI.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-110">Run the following command in your CLI.</span></span>
+<span data-ttu-id="55df3-110">Execute o seguinte comando em sua CLI.</span><span class="sxs-lookup"><span data-stu-id="55df3-110">Run the following command in your CLI.</span></span>
 
 ```Shell
 composer require league/oauth2-client:dev-master microsoft/microsoft-graph
 ```
 
-## <a name="design-the-app"></a><span data-ttu-id="1ddc3-111">Projetar o aplicativo</span><span class="sxs-lookup"><span data-stu-id="1ddc3-111">Design the app</span></span>
+## <a name="design-the-app"></a><span data-ttu-id="55df3-111">Projetar o aplicativo</span><span class="sxs-lookup"><span data-stu-id="55df3-111">Design the app</span></span>
 
-<span data-ttu-id="1ddc3-112">Comece criando o layout global para o aplicativo.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-112">Start by creating the global layout for the app.</span></span> <span data-ttu-id="1ddc3-113">Crie um novo arquivo no `./resources/views` diretório chamado `layout.blade.php` e adicione o código a seguir.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-113">Create a new file in the  `./resources/views` directory named `layout.blade.php` and add the following code.</span></span>
+<span data-ttu-id="55df3-112">Comece criando o layout global para o aplicativo.</span><span class="sxs-lookup"><span data-stu-id="55df3-112">Start by creating the global layout for the app.</span></span> <span data-ttu-id="55df3-113">Crie um novo arquivo no `./resources/views` diretório chamado `layout.blade.php` e adicione o código a seguir.</span><span class="sxs-lookup"><span data-stu-id="55df3-113">Create a new file in the  `./resources/views` directory named `layout.blade.php` and add the following code.</span></span>
 
 ```php
 <!DOCTYPE html>
@@ -114,9 +114,9 @@ composer require league/oauth2-client:dev-master microsoft/microsoft-graph
 </html>
 ```
 
-<span data-ttu-id="1ddc3-114">Este código adiciona a [inicialização](http://getbootstrap.com/) para estilos simples e a [fonte incrível](https://fontawesome.com/) para alguns ícones simples.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-114">This code adds [Bootstrap](http://getbootstrap.com/) for simple styling, and [Font Awesome](https://fontawesome.com/) for some simple icons.</span></span> <span data-ttu-id="1ddc3-115">Também define um layout global com uma barra de navegação.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-115">It also defines a global layout with a nav bar.</span></span>
+<span data-ttu-id="55df3-114">Este código adiciona a [inicialização](http://getbootstrap.com/) para estilos simples e a [fonte incrível](https://fontawesome.com/) para alguns ícones simples.</span><span class="sxs-lookup"><span data-stu-id="55df3-114">This code adds [Bootstrap](http://getbootstrap.com/) for simple styling, and [Font Awesome](https://fontawesome.com/) for some simple icons.</span></span> <span data-ttu-id="55df3-115">Também define um layout global com uma barra de navegação.</span><span class="sxs-lookup"><span data-stu-id="55df3-115">It also defines a global layout with a nav bar.</span></span>
 
-<span data-ttu-id="1ddc3-116">Agora, `./public/css/app.css` abra e substitua todo o conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-116">Now open `./public/css/app.css` and replace its entire contents with the following.</span></span>
+<span data-ttu-id="55df3-116">Crie um `./public` novo diretório no diretório chamado `css`e, em seguida, crie um novo arquivo `./public/css` no diretório `app.css`chamado.</span><span class="sxs-lookup"><span data-stu-id="55df3-116">Create a new directory in the `./public` directory named `css`, then create a new file in the `./public/css` directory named `app.css`.</span></span> <span data-ttu-id="55df3-117">Adicione o código a seguir.</span><span class="sxs-lookup"><span data-stu-id="55df3-117">Add the following code.</span></span>
 
 ```css
 body {
@@ -130,7 +130,7 @@ body {
 }
 ```
 
-<span data-ttu-id="1ddc3-117">Agora, atualize a página padrão.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-117">Now update the default page.</span></span> <span data-ttu-id="1ddc3-118">Abra o `./resources/views/welcome.blade.php` arquivo e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-118">Open the `./resources/views/welcome.blade.php` file and replace its contents with the following.</span></span>
+<span data-ttu-id="55df3-118">Agora, atualize a página padrão.</span><span class="sxs-lookup"><span data-stu-id="55df3-118">Now update the default page.</span></span> <span data-ttu-id="55df3-119">Abra o `./resources/views/welcome.blade.php` arquivo e substitua seu conteúdo pelo seguinte.</span><span class="sxs-lookup"><span data-stu-id="55df3-119">Open the `./resources/views/welcome.blade.php` file and replace its contents with the following.</span></span>
 
 ```php
 @extends('layout')
@@ -149,7 +149,7 @@ body {
 @endsection
 ```
 
-<span data-ttu-id="1ddc3-119">Atualize a classe `Controller` base no `./app/Http/Controllers/Controller.php` adicionando a função a seguir à classe.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-119">Update the base `Controller` class in `./app/Http/Controllers/Controller.php` by adding the following function to the class.</span></span>
+<span data-ttu-id="55df3-120">Atualize a classe `Controller` base no `./app/Http/Controllers/Controller.php` adicionando a função a seguir à classe.</span><span class="sxs-lookup"><span data-stu-id="55df3-120">Update the base `Controller` class in `./app/Http/Controllers/Controller.php` by adding the following function to the class.</span></span>
 
 ```php
 public function loadViewData()
@@ -173,7 +173,7 @@ public function loadViewData()
 }
 ```
 
-<span data-ttu-id="1ddc3-120">Em seguida, adicione um controlador para a Home Page.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-120">Next, add a controller for the home page.</span></span> <span data-ttu-id="1ddc3-121">Crie um novo arquivo no `./app/Http/Controllers` diretório chamado `HomeController.php` e adicione o código a seguir.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-121">Create a new file in the `./app/Http/Controllers` directory named `HomeController.php` and add the following code.</span></span>
+<span data-ttu-id="55df3-121">Em seguida, adicione um controlador para a Home Page.</span><span class="sxs-lookup"><span data-stu-id="55df3-121">Next, add a controller for the home page.</span></span> <span data-ttu-id="55df3-122">Crie um novo arquivo no `./app/Http/Controllers` diretório chamado `HomeController.php` e adicione o código a seguir.</span><span class="sxs-lookup"><span data-stu-id="55df3-122">Create a new file in the `./app/Http/Controllers` directory named `HomeController.php` and add the following code.</span></span>
 
 ```php
 <?php
@@ -194,7 +194,7 @@ class HomeController extends Controller
 }
 ```
 
-<span data-ttu-id="1ddc3-122">Por fim, atualize a rota `./routes/web.php` para usar o novo controlador.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-122">Finally, update the route in `./routes/web.php` to use the new controller.</span></span> <span data-ttu-id="1ddc3-123">Substitua todo o conteúdo deste arquivo com o seguinte.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-123">Replace the entire contents of this file with the following.</span></span>
+<span data-ttu-id="55df3-123">Por fim, atualize a rota `./routes/web.php` para usar o novo controlador.</span><span class="sxs-lookup"><span data-stu-id="55df3-123">Finally, update the route in `./routes/web.php` to use the new controller.</span></span> <span data-ttu-id="55df3-124">Substitua todo o conteúdo deste arquivo com o seguinte.</span><span class="sxs-lookup"><span data-stu-id="55df3-124">Replace the entire contents of this file with the following.</span></span>
 
 ```php
 <?php
@@ -202,6 +202,6 @@ class HomeController extends Controller
 Route::get('/', 'HomeController@welcome');
 ```
 
-<span data-ttu-id="1ddc3-124">Salve todas as suas alterações e reinicie o servidor.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-124">Save all of your changes and restart the server.</span></span> <span data-ttu-id="1ddc3-125">Agora, o aplicativo deve ser muito diferente.</span><span class="sxs-lookup"><span data-stu-id="1ddc3-125">Now, the app should look very different.</span></span>
+<span data-ttu-id="55df3-125">Salve todas as suas alterações e reinicie o servidor.</span><span class="sxs-lookup"><span data-stu-id="55df3-125">Save all of your changes and restart the server.</span></span> <span data-ttu-id="55df3-126">Agora, o aplicativo deve ser muito diferente.</span><span class="sxs-lookup"><span data-stu-id="55df3-126">Now, the app should look very different.</span></span>
 
 ![Uma captura de tela da página inicial reprojetada](./images/create-app-01.png)
