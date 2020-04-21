@@ -8,19 +8,11 @@ Neste laboratório, você criará um aplicativo Web PHP usando o ponto de extrem
 
 - [Tutorial do Microsoft Graph do PHP](https://docs.microsoft.com/graph/training/php-tutorial)
 
-## <a name="demos"></a>Demonstrações
-
-O [](./Demos) diretório demos neste repositório contém cópias do projeto que correspondem à conclusão de seções individuais do tutorial. Se você só quiser demonstrar uma seção específica do tutorial, você pode começar com a versão da seção anterior.
-
-- [01-create-app](Demos/01-create-app): concluído [criar um aplicativo Web PHP](https://docs.microsoft.com/graph/training/php-tutorial?tutorial-step=1)
-- [02-Add-AAD-auth](Demos/02-add-aad-auth): concluído [Adicionar autenticação do Azure ad](https://docs.microsoft.com/graph/training/php-tutorial?tutorial-step=3)
-- [03-Add-msgraph](Demos/03-add-msgraph): concluído [obter dados de calendário](https://docs.microsoft.com/graph/training/php-tutorial?tutorial-step=4)
-
 ## <a name="completed-sample"></a>Exemplo completo
 
 Se você só quiser que o exemplo completo seja gerado seguindo este laboratório, você pode encontrá-lo aqui.
 
-- [Projeto concluído](Demos/03-add-msgraph)
+- [Projeto concluído](demo)
 
 ## <a name="disclaimer"></a>Aviso de isenção de responsabilidade
 
