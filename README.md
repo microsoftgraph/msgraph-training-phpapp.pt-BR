@@ -14,7 +14,11 @@ Se você só quiser que o exemplo completo seja gerado seguindo este laboratóri
 
 - [Projeto concluído](demo)
 
-## <a name="disclaimer"></a>Aviso de isenção de responsabilidade
+## <a name="more-samples"></a>Mais exemplos
+
+Se você estiver procurando outros exemplos de gráfico além dos cenários de calendário, ou se quiser contribuir com outros exemplos para este projeto, confira a [ramificação amostras](https://github.com/microsoftgraph/msgraph-training-phpapp/tree/samples).
+
+## <a name="disclaimer"></a>Aviso de isenção
 
 **Este código é fornecido *como está* sem garantia de qualquer tipo, seja expressa ou implícita, incluindo quaisquer garantias implícitas de ADEQÜAÇÃO para um propósito específico, comercialização ou não-violação.**
 

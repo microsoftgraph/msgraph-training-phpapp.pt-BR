@@ -2,14 +2,14 @@
 
 Neste exercício, você estenderá o aplicativo do exercício anterior para oferecer suporte à autenticação com o Azure AD. Isso é necessário para obter o token de acesso OAuth necessário para chamar o Microsoft Graph. Nesta etapa, você integrará a biblioteca [oauth2-Client](https://github.com/thephpleague/oauth2-client) ao aplicativo.
 
-1. Abra o `.env` arquivo na raiz do seu aplicativo PHP e adicione o código a seguir ao final do arquivo.
+1. Abra o arquivo **. env** na raiz do seu aplicativo PHP e adicione o código a seguir ao final do arquivo.
 
     :::code language="ini" source="../demo/graph-tutorial/.env.example" id="OAuthSettingsSnippet":::
 
 1. Substitua `YOUR_APP_ID_HERE` pela ID do aplicativo do portal de registro do aplicativo e substitua `YOUR_APP_PASSWORD_HERE` pela senha gerada.
 
     > [!IMPORTANT]
-    > Se você estiver usando o controle de origem como o Git, agora seria uma boa hora para excluir `.env` o arquivo do controle de origem para evitar vazar inadvertidamente sua ID de aplicativo e sua senha.
+    > Se você estiver usando o controle de origem como o Git, agora seria uma boa hora para excluir o `.env` arquivo do controle de origem para evitar vazar inadvertidamente sua ID de aplicativo e sua senha.
 
 ## <a name="implement-sign-in"></a>Implementar logon
 
@@ -105,9 +105,9 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para ofer
     }
     ```
 
-    Isso define um controlador com duas ações: `signin` e `callback`.
+    Isso define um controlador com duas ações: `signin` e `callback` .
 
-    A `signin` ação gera a URL de entrada do Azure AD, salva `state` o valor gerado pelo cliente OAuth e redireciona o navegador para a página de entrada do Azure AD.
+    A `signin` ação gera a URL de entrada do Azure AD, salva o `state` valor gerado pelo cliente OAuth e redireciona o navegador para a página de entrada do Azure AD.
 
     A `callback` ação é onde o Azure redireciona após a conclusão da entrada. Essa ação garante que o `state` valor corresponde ao valor salvo e, em seguida, os usuários o código de autorização enviado pelo Azure para solicitar um token de acesso. Em seguida, ele redireciona de volta para a Home Page com o token de acesso no valor de erro temporário. Você o usará para verificar se a entrada está funcionando antes de prosseguir.
 
@@ -118,7 +118,16 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para ofer
     Route::get('/callback', 'AuthController@callback');
     ```
 
-1. Inicie o servidor e navegue até `https://localhost:8000`. Clique no botão entrar e você deverá ser redirecionado para `https://login.microsoftonline.com`o. Faça logon com sua conta da Microsoft e concorde com as permissões solicitadas. O navegador redireciona para o aplicativo, mostrando o token.
+1. Inicie o servidor e navegue até `https://localhost:8000` . Clique no botão entrar e você deverá ser redirecionado para o `https://login.microsoftonline.com` . Faça logon com sua conta da Microsoft.
+
+1. Examine o prompt de consentimento. A lista de permissões corresponde à lista de escopos de permissões configurados em **. env**.
+
+    - **Manter acesso aos dados para os quais você concedeu acesso a:** ( `offline_access` ) essa permissão é solicitada pelo MSAL para recuperar Tokens de atualização.
+    - **Entre e leia seu perfil:** ( `User.Read` ) essa permissão permite que o aplicativo obtenha o perfil do usuário conectado e a foto do perfil.
+    - **Leia suas configurações de caixa de correio:** ( `MailboxSettings.Read` ) essa permissão permite que o aplicativo Leia as configurações da caixa de correio do usuário, incluindo o fuso horário e o formato de hora.
+    - **Ter acesso total aos seus calendários:** ( `Calendars.ReadWrite` ) essa permissão permite que o aplicativo Leia eventos no calendário do usuário, adicione novos eventos e modifique os existentes.
+
+1. Consentimento para as permissões solicitadas. O navegador redireciona para o aplicativo, mostrando o token.
 
 ### <a name="get-user-details"></a>Obter detalhes do usuário
 
@@ -143,7 +152,7 @@ Nesta seção, você atualizará o `callback` método para obter o perfil do usu
       $graph = new Graph();
       $graph->setAccessToken($accessToken->getToken());
 
-      $user = $graph->createRequest('GET', '/me')
+      $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName')
         ->setReturnType(Model\User::class)
         ->execute();
 
@@ -160,7 +169,7 @@ O novo código cria um `Graph` objeto, atribui o token de acesso e, em seguida, 
 
 Agora que você pode obter tokens, é hora de implementar uma maneira de armazená-los no aplicativo. Como este é um aplicativo de exemplo, por questões de simplicidade, você os armazenará na sessão. Um aplicativo real usaria uma solução de armazenamento segura mais confiável, como um banco de dados.
 
-1. Crie um novo diretório no diretório **./app** chamado `TokenStore`e, em seguida, crie um novo arquivo no diretório `TokenCache.php`chamado e adicione o código a seguir.
+1. Crie um novo diretório no diretório **./app** chamado e, `TokenStore` em seguida, crie um novo arquivo no diretório chamado `TokenCache.php` e adicione o código a seguir.
 
     ```php
     <?php
@@ -175,6 +184,7 @@ Agora que você pode obter tokens, é hora de implementar uma maneira de armazen
           'tokenExpires' => $accessToken->getExpires(),
           'userName' => $user->getDisplayName(),
           'userEmail' => null !== $user->getMail() ? $user->getMail() : $user->getUserPrincipalName()
+          'userTimeZone' => $user->getMailboxSettings()->getTimeZone()
         ]);
       }
 
@@ -184,6 +194,7 @@ Agora que você pode obter tokens, é hora de implementar uma maneira de armazen
         session()->forget('tokenExpires');
         session()->forget('userName');
         session()->forget('userEmail');
+        session()->forget('userTimeZone');
       }
 
       public function getAccessToken() {

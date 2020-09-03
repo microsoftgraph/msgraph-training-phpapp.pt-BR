@@ -23,6 +23,12 @@ Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteri
 - [oauth2-Client](https://github.com/thephpleague/oauth2-client) para manipulação de entrada e fluxos de token OAuth.
 - [Microsoft-Graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.
 
+1. Execute o comando a seguir para remover a versão existente do `guzzlehttp/guzzle` . A versão instalada pelo Laravel está em conflito com a versão exigida pelo SDK do Microsoft Graph PHP.
+
+    ```Shell
+    composer remove guzzlehttp/guzzle
+    ```
+
 1. Execute o seguinte comando em sua CLI.
 
     ```Shell
@@ -37,7 +43,7 @@ Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteri
 
     Este código adiciona a [inicialização](http://getbootstrap.com/) para estilos simples e a [fonte incrível](https://fontawesome.com/) para alguns ícones simples. Também define um layout global com uma barra de navegação.
 
-1. Crie um `./public` novo diretório no diretório chamado `css`e, em seguida, crie um novo arquivo `./public/css` no diretório `app.css`chamado. Adicione o código a seguir.
+1. Crie um novo diretório no `./public` diretório chamado `css` e, em seguida, crie um novo arquivo no `./public/css` diretório chamado `app.css` . Adicione o código a seguir.
 
     :::code language="css" source="../demo/graph-tutorial/public/css/app.css":::
 
@@ -45,7 +51,7 @@ Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteri
 
     :::code language="php" source="../demo/graph-tutorial/resources/views/welcome.blade.php" id="WelcomeSnippet":::
 
-1. Atualize a classe `Controller` base no **./app/http/Controllers/Controller.php** adicionando a função a seguir à classe.
+1. Atualize a `Controller` classe base no **./app/http/Controllers/Controller.php** adicionando a função a seguir à classe.
 
     :::code language="php" source="../demo/graph-tutorial/app/Http/Controllers/Controller.php" id="LoadViewDataSnippet":::
 
