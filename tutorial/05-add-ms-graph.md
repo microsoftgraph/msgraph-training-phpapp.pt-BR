@@ -1,16 +1,16 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-Neste exercício, você incorporará o Microsoft Graph no aplicativo. Para este aplicativo, você usará a biblioteca do [Microsoft-Graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.
+Neste exercício, você incorporará o Microsoft Graph ao aplicativo. Para este aplicativo, você usará a biblioteca [microsoft-graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.
 
 ## <a name="get-calendar-events-from-outlook"></a>Obter eventos de calendário do Outlook
 
-1. Crie um novo diretório no diretório **./app** chamado e, `TimeZones` em seguida, crie um novo arquivo no diretório chamado `TimeZones.php` e adicione o código a seguir.
+1. Crie um novo diretório no diretório **./app** chamado , em seguida, crie um novo arquivo nesse diretório nomeado `TimeZones` e adicione o código a `TimeZones.php` seguir.
 
     :::code language="php" source="../demo/graph-tutorial/app/TimeZones/TimeZones.php":::
 
-    Essa classe implementa um mapeamento simplista de nomes de fuso horário do Windows para os identificadores de fuso horário da IANA.
+    Essa classe implementa um mapeamento simplístico de nomes de fuso horário do Windows para identificadores de fuso horário IANA.
 
-1. Crie um novo arquivo no diretório **./app/http/Controllers** chamado `CalendarController.php` e adicione o código a seguir.
+1. Crie um novo arquivo no **diretório ./app/Http/Controllers** nomeado `CalendarController.php` e adicione o código a seguir.
 
     ```php
     <?php
@@ -78,40 +78,47 @@ Neste exercício, você incorporará o Microsoft Graph no aplicativo. Para este 
     }
     ```
 
-    Considere o que esse código está fazendo.
+    Considere o que este código está fazendo.
 
     - A URL que será chamada é `/v1.0/me/calendarView` .
-    - Os `startDateTime` `endDateTime` parâmetros e definem o início e o fim do modo de exibição.
-    - O `$select` parâmetro limita os campos retornados para cada evento para apenas aqueles que o modo de exibição realmente usará.
-    - O `$orderby` parâmetro classifica os resultados pela data e hora em que foram criados, com o item mais recente em primeiro lugar.
+    - Os `startDateTime` `endDateTime` parâmetros e o início definem o início e o fim do ponto de vista.
+    - O parâmetro limita os campos retornados para cada evento a apenas aqueles que o ponto de exibição `$select` realmente usará.
+    - O parâmetro classifica os resultados pela data e hora em que foram criados, com `$orderby` o item mais recente sendo o primeiro.
     - O `$top` parâmetro limita os resultados a 25 eventos.
-    - O `Prefer: outlook.timezone=""` cabeçalho faz com que as horas de início e de término na resposta sejam ajustadas para o fuso horário preferencial do usuário.
+    - O header faz com que os horários de início e término na resposta sejam ajustados para `Prefer: outlook.timezone=""` o fuso horário preferido do usuário.
 
-1. Atualize as rotas no **./routes/Web.php** para adicionar uma rota a este novo controlador.
+1. Atualize as rotas **em ./routes/web.php** para adicionar uma rota a esse novo controlador.
 
     ```php
     Route::get('/calendar', 'CalendarController@calendar');
     ```
 
-1. Entre e clique no link **calendário** na barra de navegação. Se tudo funcionar, você deverá ver um despejo JSON de eventos no calendário do usuário.
+1. Entre e clique no link **Calendário** na barra de inv. Se tudo funcionar, você deverá ver um despejo JSON de eventos no calendário do usuário.
 
 ## <a name="display-the-results"></a>Exibir os resultados
 
-Agora você pode adicionar um modo de exibição para exibir os resultados de forma mais amigável.
+Agora você pode adicionar um modo de exibição para exibir os resultados de uma maneira mais amigável.
 
-1. Crie um novo arquivo no diretório **./Resources/views** chamado `calendar.blade.php` e adicione o código a seguir.
+1. Crie um novo arquivo no diretório **./resources/views** nomeado `calendar.blade.php` e adicione o código a seguir.
 
     :::code language="php" source="../demo/graph-tutorial/resources/views/calendar.blade.php" id="CalendarSnippet":::
 
-    Isso executará um loop através de uma coleção de eventos e adicionará uma linha de tabela para cada um.
+    Isso fará um loop por uma coleção de eventos e adicionará uma linha de tabela para cada um deles.
 
-1. Remova a `return response()->json($events);` linha da `calendar` ação em **./app/http/Controllers/CalendarController.php**e substitua-a pelo código a seguir.
+1. Atualize as rotas **em ./routes/web.php** para adicionar rotas para `/calendar/new` . Você implementará essas funções na próxima seção, mas a rota precisa ser definida agora porque **calendar.blade.php** faz referência a ela.
+
+    ```php
+    Route::get('/calendar/new', 'CalendarController@getNewEventForm');
+    Route::post('/calendar/new', 'CalendarController@createNewEvent');
+    ```
+
+1. Remova a `return response()->json($events);` linha da ação em `calendar` **./app/Http/Controllers/CalendarController.php** e substitua-a pelo código a seguir.
 
     ```php
     $viewData['events'] = $events;
     return view('calendar', $viewData);
     ```
 
-1. Atualize a página e o aplicativo agora deve renderizar uma tabela de eventos.
+1. Atualize a página e o aplicativo agora deverá renderizar uma tabela de eventos.
 
     ![Uma captura de tela da tabela de eventos](./images/add-msgraph-01.png)
