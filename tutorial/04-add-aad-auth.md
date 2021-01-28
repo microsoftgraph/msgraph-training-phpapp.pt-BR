@@ -4,12 +4,16 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para dar 
 
 1. Abra o **arquivo .env** na raiz do seu aplicativo PHP e adicione o seguinte código ao final do arquivo.
 
-    :::code language="ini" source="../demo/graph-tutorial/example.env" range="48-54":::
+    :::code language="ini" source="../demo/graph-tutorial/example.env" range="51-57":::
 
-1. Substitua pela ID do aplicativo do Portal de Registro de Aplicativo e substitua `YOUR_APP_ID_HERE` `YOUR_APP_PASSWORD_HERE` pela senha gerada.
+1. Substitua pela ID do aplicativo do Portal de Registro de Aplicativos e substitua `YOUR_APP_ID_HERE` `YOUR_APP_SECRET_HERE` pela senha gerada.
 
     > [!IMPORTANT]
     > Se você estiver usando o controle de código-fonte, como git, agora seria um bom momento para excluir o arquivo do controle de código-fonte para evitar o vazamento inadvertida de sua ID de aplicativo `.env` e senha.
+
+1. Crie um novo arquivo na pasta **./config** nomeado `azure.php` e adicione o código a seguir.
+
+    :::code language="php" source="../demo/graph-tutorial/config/azure.php":::
 
 ## <a name="implement-sign-in"></a>Implementar a login
 
@@ -29,13 +33,13 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para dar 
       {
         // Initialize the OAuth client
         $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-          'clientId'                => env('OAUTH_APP_ID'),
-          'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-          'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-          'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-          'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+          'clientId'                => config('azure.appId'),
+          'clientSecret'            => config('azure.appSecret'),
+          'redirectUri'             => config('azure.redirectUri'),
+          'urlAuthorize'            => config('azure.authority').config('azure.authorizeEndpoint'),
+          'urlAccessToken'          => config('azure.authority').config('azure.tokenEndpoint'),
           'urlResourceOwnerDetails' => '',
-          'scopes'                  => env('OAUTH_SCOPES')
+          'scopes'                  => config('azure.scopes')
         ]);
 
         $authUrl = $oauthClient->getAuthorizationUrl();
@@ -71,13 +75,13 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para dar 
         if (isset($authCode)) {
           // Initialize the OAuth client
           $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-            'clientId'                => env('OAUTH_APP_ID'),
-            'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-            'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-            'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-            'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+            'clientId'                => config('azure.appId'),
+            'clientSecret'            => config('azure.appSecret'),
+            'redirectUri'             => config('azure.redirectUri'),
+            'urlAuthorize'            => config('azure.authority').config('azure.authorizeEndpoint'),
+            'urlAccessToken'          => config('azure.authority').config('azure.tokenEndpoint'),
             'urlResourceOwnerDetails' => '',
-            'scopes'                  => env('OAUTH_SCOPES')
+            'scopes'                  => config('azure.scopes')
           ]);
 
           try {
@@ -124,7 +128,7 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para dar 
 
     - **Mantenha acesso aos dados aos** que você deu a eles acesso: ( ) Essa permissão é solicitada pela MSAL para recuperar `offline_access` tokens de atualização.
     - **Entre e leia seu perfil:** ( ) Essa permissão permite que o aplicativo receba o perfil do usuário conectado e a foto `User.Read` do perfil.
-    - **Leia as configurações da** caixa de correio: ( ) Essa permissão permite que o aplicativo leia as configurações da caixa de correio do usuário, incluindo fuso horário e `MailboxSettings.Read` formato de hora.
+    - **Leia as configurações da** caixa de correio: ( ) Essa permissão permite que o aplicativo leia as configurações da caixa de correio do usuário, incluindo o fuso horário e o `MailboxSettings.Read` formato de hora.
     - Tenha acesso total aos seus **calendários:** ( ) Essa permissão permite que o aplicativo leia eventos no calendário do usuário, adicione novos eventos e modifique `Calendars.ReadWrite` os existentes.
 
 1. Consentir com as permissões solicitadas. O navegador redireciona para o aplicativo, mostrando o token.
@@ -167,7 +171,7 @@ O novo código cria um objeto, atribui o token de acesso e o usa `Graph` para so
 
 ## <a name="storing-the-tokens"></a>Armazenar os tokens
 
-Agora que você pode obter tokens, é hora de implementar uma maneira de armazená-los no aplicativo. Como este é um aplicativo de exemplo, por questão de simplicidade, você irá armazená-los na sessão. Um aplicativo real usaria uma solução de armazenamento seguro mais confiável, como um banco de dados.
+Agora que você pode obter tokens, é hora de implementar uma maneira de armazená-los no aplicativo. Como este é um aplicativo de exemplo, por questão de simplicidade, você os armazenará na sessão. Um aplicativo real usaria uma solução de armazenamento seguro mais confiável, como um banco de dados.
 
 1. Crie um novo diretório no diretório **./app** chamado , em seguida, crie um novo arquivo nesse diretório nomeado `TokenStore` e adicione o código a `TokenCache.php` seguir.
 
@@ -244,7 +248,7 @@ Antes de testar esse novo recurso, adicione uma maneira de sair.
 
 ## <a name="refreshing-tokens"></a>Atualização de tokens
 
-Neste ponto, seu aplicativo tem um token de acesso, que é enviado no `Authorization` header de chamadas de API. Esse é o token que permite ao aplicativo acessar o Microsoft Graph em nome do usuário.
+Neste ponto, seu aplicativo tem um token de acesso, que é enviado no `Authorization` header de chamadas de API. Esse é o token que permite que o aplicativo acesse o Microsoft Graph em nome do usuário.
 
 No entanto, esse token tem curta duração. O token expira uma hora após sua emissão. É aqui que o token de atualização se torna útil. O token de atualização permite que o aplicativo solicite um novo token de acesso sem exigir que o usuário entre novamente. Atualize o código de gerenciamento de token para implementar a atualização de token.
 
@@ -256,4 +260,4 @@ No entanto, esse token tem curta duração. O token expira uma hora após sua em
 
     :::code language="php" source="../demo/graph-tutorial/app/TokenStore/TokenCache.php" id="GetAccessTokenSnippet":::
 
-Esse método primeiro verifica se o token de acesso expirou ou está próximo de expirar. Se estiver, usa o token de atualização para obter novos tokens, atualiza o cache e retorna o novo token de acesso.
+Este método primeiro verifica se o token de acesso expirou ou está próximo de expirar. Se estiver, usa o token de atualização para obter novos tokens, atualiza o cache e retorna o novo token de acesso.

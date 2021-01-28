@@ -39,6 +39,8 @@ Neste exercício, você incorporará o Microsoft Graph ao aplicativo. Para este 
         $startOfWeek = new \DateTimeImmutable('sunday -1 week', $timezone);
         $endOfWeek = new \DateTimeImmutable('sunday', $timezone);
 
+        $viewData['dateRange'] = $startOfWeek->format('M j, Y').' - '.$endOfWeek->format('M j, Y');
+
         $queryParams = array(
           'startDateTime' => $startOfWeek->format(\DateTimeInterface::ISO8601),
           'endDateTime' => $endOfWeek->format(\DateTimeInterface::ISO8601),
@@ -81,7 +83,7 @@ Neste exercício, você incorporará o Microsoft Graph ao aplicativo. Para este 
     Considere o que este código está fazendo.
 
     - A URL que será chamada é `/v1.0/me/calendarView` .
-    - Os `startDateTime` `endDateTime` parâmetros e o início definem o início e o fim do ponto de vista.
+    - The `startDateTime` and `endDateTime` parameters define the start and end of the view.
     - O parâmetro limita os campos retornados para cada evento a apenas aqueles que o ponto de exibição `$select` realmente usará.
     - O parâmetro classifica os resultados pela data e hora em que foram criados, com `$orderby` o item mais recente sendo o primeiro.
     - O `$top` parâmetro limita os resultados a 25 eventos.
@@ -97,7 +99,7 @@ Neste exercício, você incorporará o Microsoft Graph ao aplicativo. Para este 
 
 ## <a name="display-the-results"></a>Exibir os resultados
 
-Agora você pode adicionar um modo de exibição para exibir os resultados de uma maneira mais amigável.
+Agora você pode adicionar um modo de exibição para exibir os resultados de maneira mais amigável.
 
 1. Crie um novo arquivo no diretório **./resources/views** nomeado `calendar.blade.php` e adicione o código a seguir.
 

@@ -2,32 +2,26 @@
 
 Comece criando um novo projeto do Laravel.
 
-1. Abra a interface de linha de comando (CLI), navegue até um diretório onde você tem direitos para criar arquivos e execute o seguinte comando para criar um novo aplicativo PHP.
+1. Abra sua CLI (interface de linha de comando), navegue até um diretório onde você tenha direitos para criar arquivos e execute o seguinte comando para criar um novo aplicativo PHP.
 
     ```Shell
     laravel new graph-tutorial
     ```
 
-1. Navegue até o diretório do **tutorial do gráfico** e digite o seguinte comando para iniciar um servidor Web local.
+1. Navegue até **o diretório de tutorial** do gráfico e insira o seguinte comando para iniciar um servidor Web local.
 
     ```Shell
     php artisan serve
     ```
 
-1. Abra o navegador e vá até `http://localhost:8000`. Se tudo estiver funcionando, você verá uma página padrão do Laravel. Se você não vir essa página, verifique os [documentos do Laravel](https://laravel.com/docs/7.x).
+1. Abra o navegador e vá até `http://localhost:8000`. Se tudo estiver funcionando, você verá uma página padrão do Laravel. Se você não vir essa página, verifique os documentos [do Laravel.](https://laravel.com/docs/8.x)
 
 ## <a name="install-packages"></a>Instalar pacotes
 
-Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteriormente:
+Antes de continuar, instale alguns pacotes adicionais que você usará mais tarde:
 
-- [oauth2-Client](https://github.com/thephpleague/oauth2-client) para manipulação de entrada e fluxos de token OAuth.
-- [Microsoft-Graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.
-
-1. Execute o comando a seguir para remover a versão existente do `guzzlehttp/guzzle` . A versão instalada pelo Laravel está em conflito com a versão exigida pelo SDK do Microsoft Graph PHP.
-
-    ```Shell
-    composer remove guzzlehttp/guzzle
-    ```
+- [oauth2-client](https://github.com/thephpleague/oauth2-client) para manipular fluxos de entrada e token OAuth.
+- [microsoft-graph](https://github.com/microsoftgraph/msgraph-sdk-php) para fazer chamadas para o Microsoft Graph.
 
 1. Execute o seguinte comando em sua CLI.
 
@@ -37,13 +31,13 @@ Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteri
 
 ## <a name="design-the-app"></a>Projetar o aplicativo
 
-1. Crie um novo arquivo no diretório **./Resources/views** chamado `layout.blade.php` e adicione o código a seguir.
+1. Crie um novo arquivo no diretório **./resources/views** nomeado `layout.blade.php` e adicione o código a seguir.
 
     :::code language="php" source="../demo/graph-tutorial/resources/views/layout.blade.php" id="LayoutSnippet":::
 
-    Este código adiciona a [inicialização](http://getbootstrap.com/) para estilos simples e a [fonte incrível](https://fontawesome.com/) para alguns ícones simples. Também define um layout global com uma barra de navegação.
+    Este código adiciona [Bootstrap](http://getbootstrap.com/) para estilo simples e [Font Awesome](https://fontawesome.com/) para alguns ícones simples. Ele também define um layout global com uma barra de inv.
 
-1. Crie um novo diretório no `./public` diretório chamado `css` e, em seguida, crie um novo arquivo no `./public/css` diretório chamado `app.css` . Adicione o código a seguir.
+1. Crie um novo diretório no `./public` diretório chamado , em `css` seguida, crie um novo arquivo no diretório `./public/css` chamado `app.css` . Adicione o código a seguir.
 
     :::code language="css" source="../demo/graph-tutorial/public/css/app.css":::
 
@@ -51,15 +45,15 @@ Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteri
 
     :::code language="php" source="../demo/graph-tutorial/resources/views/welcome.blade.php" id="WelcomeSnippet":::
 
-1. Atualize a `Controller` classe base no **./app/http/Controllers/Controller.php** adicionando a função a seguir à classe.
+1. Atualize `Controller` a classe base **em ./app/Http/Controllers/Controller.php** adicionando a função a seguir à classe.
 
     :::code language="php" source="../demo/graph-tutorial/app/Http/Controllers/Controller.php" id="LoadViewDataSnippet":::
 
-1. Crie um novo arquivo no `./app/Http/Controllers` diretório chamado `HomeController.php` e adicione o código a seguir.
+1. Crie um novo arquivo no `./app/Http/Controllers` diretório nomeado e adicione o código a `HomeController.php` seguir.
 
     :::code language="php" source="../demo/graph-tutorial/app/Http/Controllers/HomeController.php":::
 
-1. Atualize a rota `./routes/web.php` para usar o novo controlador. Substitua todo o conteúdo deste arquivo com o seguinte.
+1. Atualize a rota `./routes/web.php` para usar o novo controlador. Substitua todo o conteúdo deste arquivo pelo seguinte.
 
     ```php
     <?php
@@ -69,6 +63,19 @@ Antes de prosseguir, instale alguns pacotes adicionais que serão usados posteri
     Route::get('/', 'HomeController@welcome');
     ```
 
-1. Salve todas as suas alterações e reinicie o servidor. Agora, o aplicativo deve ser muito diferente.
+1. Abra **./app/Providers/RouteServiceProvider.php** e descompromente a `$namespace` declaração.
 
-    ![Uma captura de tela da página inicial reprojetada](./images/create-app-01.png)
+    ```php
+    /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $namespace = 'App\Http\Controllers';
+    ```
+
+1. Salve todas as suas alterações e reinicie o servidor. Agora, o aplicativo deve parecer muito diferente.
+
+    ![Uma captura de tela da home page reprojetada](./images/create-app-01.png)
